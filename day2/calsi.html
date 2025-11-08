@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counter App</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f3f3f3;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-bottom: 20px;
+      color: black;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="count">0</h1>
+
+  <div class="buttons">
+    <button id="decrement">Decrement</button>
+    <button id="reset">Reset</button>
+    <button id="increment">Increment</button>
+  </div>
+
+  <script>
+    let count = 0;
+    const countDisplay = document.getElementById('count');
+    const incrementBtn = document.getElementById('increment');
+    const decrementBtn = document.getElementById('decrement');
+    const resetBtn = document.getElementById('reset');
+
+    function updateDisplay() {
+      countDisplay.textContent = count;
+
+      if (count > 0) {
+        countDisplay.style.color = 'green';
+      } 
+      else if (count < 0) {
+        countDisplay.style.color = 'red';
+      } 
+      else {
+        countDisplay.style.color = 'black';
+      }
+    }
+
+    incrementBtn.addEventListener('click', () => {
+      count++;
+      updateDisplay();
+    });
+
+    decrementBtn.addEventListener('click', () => {
+      count--;
+      updateDisplay();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      count = 0;
+      updateDisplay();
+    });
+  </script>
+</body>
+</html>
