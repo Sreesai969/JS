@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Array Manager</title>
+  <style>
+    body { 
+        font-family: sans-serif; 
+        padding: 20px;
+        align-items: center; 
+        background-color: aqua;
+        align-self: center;
+    }
+    .error 
+    { color: red; 
+    }
+    ul {
+         list-style-type: none;
+          padding: 0; 
+        }
+    li { 
+        margin: 5px 0;
+     }
+    button.delete-btn { 
+        margin-left: 10px; 
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Array Manager</h1>
+
+  <input type="text" id="item-input" placeholder="Enter an item" />
+  <button id="add-btn">Add</button>
+  <div id="message" class="error"></div>
+
+  <ul id="item-list"></ul>
+
+  <script>
+    let items = [];
+    const inputEl = document.getElementById('item-input');
+    const addBtn = document.getElementById('add-btn');
+    const listEl = document.getElementById('item-list');
+    const messageEl = document.getElementById('message');
+    function showMessage(msg) {
+      messageEl.textContent = msg;
+      setTimeout(() => {
+        if (messageEl.textContent === msg) {
+          messageEl.textContent = '';
+        }
+      }, 2000);
+    }
+    function renderList() {
+      listEl.innerHTML = '';
+      items.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Delete';
+        delBtn.className = 'delete-btn';
+        delBtn.addEventListener('click', () => {
+          deleteItem(index);
+        });
+
+        li.appendChild(delBtn);
+        listEl.appendChild(li);
+      });
+    }
+    function addItem() {
+      const newItem = inputEl.value.trim();
+      if (!newItem) {
+        showMessage('Please enter a non-empty value');
+        return;
+      }
+      if (items.indexOf(newItem) !== -1) {
+        showMessage('Item already exists');
+        return;
+      }
+      items.push(newItem);
+      renderList();
+      inputEl.value = '';
+    }
+    function deleteItem(index) {
+      items.splice(index, 1);
+      renderList();
+    }
+    addBtn.addEventListener('click', addItem);
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        addItem();
+      }
+    });
+    renderList();
+  </script>
+</body>
+</html>

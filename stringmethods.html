@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            justify-content: center;
+            align-items: center;
+        }
+        button{
+            background-color:white;
+            font-size: 20px;
+        }
+        #red{
+            background-color: red;
+        }
+        #green{
+            background-color: green;
+        }
+        #blue{
+            background-color: blue;
+        }
+        #yellow{
+            background-color: yellow;
+        }
+        #boxesContainer {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .color-box {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      border-radius: 4px;
+    }
+    .delete-icon {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 16px;
+      line-height: 20px;
+      cursor: pointer;
+    }
+    </style>
+</head>
+<body>
+    <button id="red">RED</button>
+   <button id="green">GREEN</button>
+   <button id="blue">BLUE</button>
+   <button id="yellow">YELLOW</button>
+   <button onclick="resetColor()">Clear all</button>
+   <h1>Boxes Area:</h1>
+<div id="boxesContainer"></div>
+
+  <script>
+    // Get references to the buttons
+    const redBtn = document.getElementById('red');
+    const greenBtn = document.getElementById('green');
+    const blueBtn = document.getElementById('blue');
+    const yellowBtn = document.getElementById('yellow');
+    const clearAllBtn = document.getElementById('del');
+
+    const boxesContainer = document.getElementById('boxesContainer');
+    function createColorBox(color) {
+      const box = document.createElement('div');
+      box.classList.add('color-box');
+      box.style.background = color;
+
+      const del = document.createElement('button');
+      del.classList.add('delete-icon');
+      del.innerText = '❌';
+      box.appendChild(del);
+      del.addEventListener('click', function() {
+        boxesContainer.removeChild(box);
+      });
+
+      boxesContainer.appendChild(box);
+    }
+    redBtn.addEventListener('click', () => createColorBox('red'));
+    greenBtn.addEventListener('click', () => createColorBox('green'));
+    blueBtn.addEventListener('click', () => createColorBox('blue'));
+    yellowBtn.addEventListener('click', () => createColorBox('yellow'));
+    pinkBtn.addEventListener('click', () => createColorBox('pink'));
+    blackBtn.addEventListener('click', () => createColorBox('black'));
+    clearAllBtn.addEventListener('click', () => {
+      while (boxesContainer.firstChild) {
+        boxesContainer.removeChild(boxesContainer.firstChild);
+      }
+    });
+    </script>
+</body>
+</html>
