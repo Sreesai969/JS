@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            flex-direction: column;
+        }
+        img{
+            width: 200px;
+            height:200px;
+        }
+        button{
+            height:50px;
+            width:120px;
+            color:white;
+            background-color: rgb(187, 17, 136);
+            border-radius: 5px solid rgb(187, 17, 136);
+            padding:10px;
+            cursor: pointer;
+            margin:5px;
+        
+        }
+    </style>
+</head>
+<body>
+    <h1>Heads OR Tails</h1>
+    <p>Flip a virtual coin with this online and free app</p>
+    <img id="coin_image" src="https://flipsimu.com/static/coin-image-big-b4e8096a3ec8ecc2b96d5998f19bda6c.png"/>
+    <button onclick="Flipthecoin()">Flip the coin!</button>
+    <script>
+      function Flipthecoin(){
+        let random_num=Math.random()*100
+        random_num=Math.floor(random_num)
+        console.log(random_num)
+        let image_ele=document.getElementById("coin_image")
+            if(random_num%2==0){
+                image_ele.src="https://www.tossacoin.in/_next/image?url=%2Fheads-or-tails.png&w=256&q=75"
+
+            } else{
+                  image_ele.src="https://www.tossacoin.in/_next/image?url=%2Fhaids-tails.png&w=256&q=75"
+            }
+           
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login Simulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f3f4f6;
+    }
+    h2 {
+      text-align: center;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 300px;
+      margin: 10px;
+    }
+    input, button {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+    }
+ #message {
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="registerSection">
+    <h2>🟦 Registration</h2>
+    <input type="text" id="regName" placeholder="Enter Name">
+    <input type="email" id="regEmail" placeholder="Enter Email">
+    <input type="password" id="regPass" placeholder="Enter Password">
+    <button onclick="registerUser()">Register</button>
+  </div>
+
+  <div class="container" id="loginSection">
+    <h2>🟩 Login</h2>
+    <input type="email" id="logEmail" placeholder="Enter Email">
+    <input type="password" id="logPass" placeholder="Enter Password">
+    <button onclick="loginUser()">Login</button>
+  </div>
+
+  <div class="container" id="welcomeSection" style="display:none;">
+    <h2 id="welcomeMsg"></h2>
+    <p id="lastLoginMsg"></p>
+    <button onclick="logoutUser()">Logout</button>
+  </div>
+
+  <p id="message"></p>
+
+  <script>
+    // ✅ Registration - localStorage
+    function registerUser() {
+      const name = document.getElementById("regName").value;
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPass").value;
+  if (name && email && password) {
+        localStorage.setItem("user", JSON.stringify({ name, email, password }));
+        document.getElementById("message").textContent = "Registration Successful!";
+      } else {
+        document.getElementById("message").textContent = "Please fill all fields.";
+      }
+    }
+
+    function loginUser() {
+      const email = document.getElementById("logEmail").value;
+      const password = document.getElementById("logPass").value;
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+
+      if (storedUser && email === storedUser.email && password === storedUser.password) {
+        sessionStorage.setItem("sessionUser", email);
+
+        const t = new Date().toUTCString();
+        const expiry = new Date(Date.now() + 5 * 60 * 1000).toUTCString();
+        document.cookie = lastLogin=${t}; expires=${expiry}; path=/;
+
+        document.getElementById("message").textContent = "Login Successful!";
+        showWelcome(storedUser.name);
+      } else {
+        document.getElementById("message").textContent = "Invalid credentials";
+      }
+    }
+ 
+    function showWelcome(name) {
+      document.getElementById("registerSection").style.display = "none";
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("welcomeSection").style.display = "block";
+      document.getElementById("welcomeMsg").textContent = Welcome, $ {name};
+      document.getElementById("lastLoginMsg").textContent = Your last login time: ${getCookie("lastLogin")};
+    }
+
+    function logoutUser() {
+      sessionStorage.removeItem("sessionUser");
+      document.getElementById("welcomeSection").style.display = "none";
+      document.getElementById("registerSection").style.display = "block";
+      document.getElementById("loginSection").style.display = "block";
+      document.getElementById("message").textContent = "Logged out";
+    }
+
+    function getCookie(name) {
+      const cookieArr = document.cookie.split("; ");
+      for (let c of cookieArr) {
+        const [key, value] = c.split("=");
+        if (key === name) return value;
+      }
+      return "No record found";
+    }
+  // Auto show welcome if already logged in
+    window.onload = function() {
+      const sessionUser = sessionStorage.getItem("sessionUser");
+      const storedUser = JSON.parse(localStorage.getItem("user"));
+      if (sessionUser && storedUser && sessionUser === storedUser.email) {
+        showWelcome(storedUser.name);
+      }
+    };
+  </script>  
+</body>
+</html>

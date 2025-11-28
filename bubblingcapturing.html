@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+           border: 2px solid black;
+           margin:5%;
+           padding:5%;
+           cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div>
+            <div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        let elems=document.getElementsByTagName("div")
+        elems[0].addEventListener("click",function(){
+            console.log("parent")
+            elems[0].style.backgroundcolor=("red")
+        },true)
+        elems[1].addEventListener("click",function(){
+            console.log("child")
+             elems[1].style.backgroundcolor=("green")
+        })
+        elems[2].addEventListener("click",function(b){
+            console.log("subchild")
+             elems[2].style.backgroundcolor=("blue")
+            b.stopPropagation()
+        })
+    </script>
+</body>
+</html>

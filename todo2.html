@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List Demo</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            padding: 30px; 
+        }
+        input, button {
+             padding: 10px; 
+             margin: 5px; 
+             font-size: 18px; 
+        }
+        #output { 
+            margin-top: 20px; 
+            font-size: 22px;
+        }
+        .row { 
+            margin-top: 10px; 
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="todoInput" placeholder="Enter todo">
+
+    <div class="row">
+        <button onclick="addFirst()">Add First</button>
+        <button onclick="addLast()">Add Last</button>
+    </div>
+
+    <div class="row">
+        <button onclick="deleteFirst()">Delete First</button>
+        <button onclick="deleteLast()">Delete Last</button>
+    </div>
+
+    <p id="output"></p>
+
+    <script>
+        var items = ["apple", "banana", "mango"];   
+        displayItems();
+
+        function addFirst() {
+            let value = document.getElementById("todoInput").value;
+            if (value.trim() === "") return;
+            items.unshift(value);
+            displayItems();
+        }
+
+        function addLast() {
+            let value = document.getElementById("todoInput").value;
+            if (value.trim() === "") return;
+            items.push(value);
+            displayItems();
+        }
+
+        function deleteFirst() {
+            items.shift();
+            displayItems();
+        }
+
+        function deleteLast() {
+            items.pop();
+            displayItems();
+        }
+
+        function displayItems() {
+            document.getElementById("output").textContent = items.join(", ");
+        }
+    </script>
+
+</body>
+</html>

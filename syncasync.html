@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+body {
+  font-family: sans-serif;
+  background: #f2f2f2;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.todo-container {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+#taskInput {
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#addBtn {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  background: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#errorMsg {
+  color: red;
+  margin: 5px 0;
+}
+
+#todoList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#todoList li {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #fafafa;
+}
+
+#todoList li.completed span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-btn {
+  margin-left: auto;
+  display: flex;
+  gap: 5px;
+}
+
+.todo-btn button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 16px;
+}
+</style>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>Todo App</h1>
+    <div class="input-group">
+      <input id="taskInput" type="text" placeholder="Enter task..." />
+      <button id="addBtn">Add</button>
+    </div>
+    <p id="errorMsg" class="error"></p>
+    <ul id="todoList"></ul>
+    <p id="counter"></p>
+  </div>
+<script>
+    
+const taskInput = document.getElementById("taskInput");
+const addBtn = document.getElementById("addBtn");
+const todoList = document.getElementById("todoList");
+const errorMsg = document.getElementById("errorMsg");
+const counter = document.getElementById("counter");
+
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function renderTodos() {
+  todoList.innerHTML = "";  
+  let remaining = 0;
+
+  todos.forEach((todo, index) => {
+    const li = 
+    document.createElement("li");
+    if (todo.isCompleted) {
+      li.classList.add("completed");
+    }
+    todoList.appendChild(li);
+ });
+}
